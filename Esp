@@ -1,0 +1,25 @@
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+
+local function createEsp(player)
+    local espBox = Instance.new("BoxHandleAdornment")
+    espBox.Parent = player.Character
+    espBox.Size = player.Character.HumanoidRootPart.Size
+    espBox.Adornee = player.Character.HumanoidRootPart
+    espBox.AlwaysOnTop = true
+    espBox.ZIndex = 5
+    espBox.Transparency = 0.5
+    espBox.Color3 = Color3.new(1, 0, 0)
+end
+
+local function updateEsp()
+    for _, player in pairs(Players:GetPlayers()) do
+        if player ~= Players.LocalPlayer and player.Character then
+            createEsp(player)
+        end
+    end
+end
+
+RunService.RenderStepped:Connect(function()
+    updateEsp()
+end)
